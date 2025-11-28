@@ -17,7 +17,7 @@ def run_task(task):
     if task not in mapping:
         return "Task không tồn tại", 400
     # task_file = os.path.join(os.getcwdb, mapping[task])
-    task_file =  os.path.join(os.path.join(os.getcwd(), "latest_code"), mapping[task])
+    task_file =  os.path.join(os.path.join(os.getcwd(), "lastest_code"), mapping[task])
     try:
         #Gọi file python bằng subprocess
         result = subprocess.check_output(["python", task_file], text=True, encoding="utf-8", errors="replace")
