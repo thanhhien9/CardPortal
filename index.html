@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Run Automation</title>
+</head>
+<body>
+  <h1>Test</h1>
+  <button onclick="runTask('NAPAS_IBFT')">NAPAS IBFT</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function runTask(taskName) {
+      document.getElementById("output").textContent = "Đang chạy " + taskName + "..."
+      try{
+        let request = await fetch('/run/' + taskName, { method: 'POST' });
+        let text = await request.text();
+        document.getElementById('output').textContent = text;
+      }
+      catch (e) {
+        document.getElementById('output').textContent = "Lỗi: " + e.message;
+      }
+    }
+  </script>
+</body>
+</html>
