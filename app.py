@@ -30,7 +30,8 @@ def run_task(task):
     try:
         #Gọi file python bằng subprocess
         # result = subprocess.check_output(["python", task_file], text=True, encoding="utf-8", errors="replace")
-        result = subprocess.check_output([sys.executable, task_file], text=True, encoding="utf-8", errors="replace")
+        python_exe = sys.executable if not getattr(sys, 'frozen', False) else "python"
+        result = subprocess.check_output([python_exe, task_file], text=True, encoding="utf-8", errors="replace")
 
         return f"Kết quả {task}:\n{result}"
     except Exception as e:
