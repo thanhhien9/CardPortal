@@ -37,4 +37,4 @@ def run_task(task):
         return 'Error: ' + str(e), 500
 if __name__ == '__main__':
     # app.run(port=5000, debug=True)
-    app.run(port=5000)
+    app.run(port=5000, debug=False, use_reloader=False)
