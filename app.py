@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory
 import subprocess
 import os
 import sys
+import importlib.util
 
 app = Flask(__name__, static_folder='public')
 
@@ -31,9 +32,9 @@ def run_task(task):
         #Gọi file python bằng subprocess
         # result = subprocess.check_output(["python", task_file], text=True, encoding="utf-8", errors="replace")
         python_exe = sys.executable if not getattr(sys, 'frozen', False) else "python"
-        result = subprocess.check_output([python_exe, task_file], text=True, encoding="utf-8", errors="replace")
-
-        return f"Kết quả {task}:\n{result}"
+        spec = importlib.util.spec_from_file_location(task, task_file)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
     except Exception as e:
         return 'Error: ' + str(e), 500
 if __name__ == '__main__':
